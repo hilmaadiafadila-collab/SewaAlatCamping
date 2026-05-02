@@ -16,75 +16,98 @@ namespace SewaAlatCamping
 
             cbKategori.Items.AddRange(new string[] { "Cooking Gear", "Hiking Gear", "Sleeping Gear", "Tent & Shelter", "Lighting & Tools" });
             cbSatuan.Items.AddRange(new string[] { "Unit", "Set", "Pasang" });
+
+            // Generate ID Otomatis
+            txtIdBarang.Text = "CMP-" + DateTime.Now.ToString("yyMMddHHmmss");
+            txtIdBarang.ReadOnly = true;
+            txtIdBarang.BackColor = Color.LightGray;
+
+            // Mematikan input diskon secara default (karena belum dicentang)
+            numDiskon.Enabled = false;
+
+            // (Panggil method BuatSudutMelengkung Anda di sini jika mau...)
+        }
+
+        // ==========================================
+        // EVENT CHECKBOX (Interaksi UI)
+        // ==========================================
+        private void chkPromo_CheckedChanged(object sender, EventArgs e)
+        {
+            // Jika dicentang, numDiskon menyala. Jika tidak, numDiskon mati.
+            numDiskon.Enabled = chkPromo.Checked;
+
+            // Jika tidak dicentang, kembalikan nilai diskon ke 0 secara otomatis
+            if (!chkPromo.Checked)
+            {
+                numDiskon.Value = 0;
+            }
         }
 
         public AlatCamping GetAlatCamping()
         {
-            // Menggunakan Constructor dari AlatCamping.cs yang menjaga enkapsulasi
             return new AlatCamping(
                 txtIdBarang.Text,
                 txtNamaBarang.Text,
                 txtMerk.Text,
                 cbKategori.Text,
-                double.Parse(txtBerat.Text),
-                int.Parse(txtStok.Text),
+                (double)numBerat.Value,       // Sekarang menggunakan NumericUpDown
+                (int)numStok.Value,
                 cbSatuan.Text,
                 dtpTglMasuk.Value,
-                decimal.Parse(txtHargaHarian.Text),
-                decimal.Parse(txtDendaHarian.Text)
+                numHarga.Value,
+                numDenda.Value,
+                chkPromo.Checked,             // Status CheckBox Promo
+                numDiskon.Value               // Persentase Diskon (0 - 100)
             );
         }
 
+        // Letakkan tepat di bawah penutup kurung kurawal } milik GetAlatCamping()
+
         public void IsiForm(AlatCamping data)
         {
-            // Mengisi form berdasarkan 10 data yang benar
+            // Mengisi data teks ke kotak input
             txtIdBarang.Text = data.IdBarang;
             txtNamaBarang.Text = data.NamaBarang;
             txtMerk.Text = data.MerkBarang;
             cbKategori.Text = data.Kategori;
-            txtBerat.Text = data.BeratGram.ToString();
-            txtStok.Text = data.Stok.ToString();
             cbSatuan.Text = data.Satuan;
             dtpTglMasuk.Value = data.TanggalMasuk;
-            txtHargaHarian.Text = data.HargaHarian.ToString();
-            txtDendaHarian.Text = data.DendaHarian.ToString();
+
+            // Mengisi data angka ke NumericUpDown 
+            // (numBerat butuh (decimal) karena aslinya double di class AlatCamping)
+            numBerat.Value = (decimal)data.BeratGram;
+            numStok.Value = data.Stok;
+            numHarga.Value = data.HargaHarian;
+            numDenda.Value = data.DendaHarian;
+
+            // Mengisi data CheckBox dan Persentase Diskon
+            chkPromo.Checked = data.IsPromo;
+            numDiskon.Value = data.DiskonPersen;
         }
+
+        // Pastikan di bawahnya adalah method: private void btnSimpan_Click(...)
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtIdBarang.Text) ||
-                string.IsNullOrWhiteSpace(txtNamaBarang.Text) ||
+            // Validasi string sekarang SANGAT SEDIKIT, program jadi bebas crash!
+            if (string.IsNullOrWhiteSpace(txtNamaBarang.Text) ||
                 string.IsNullOrWhiteSpace(txtMerk.Text) ||
                 string.IsNullOrWhiteSpace(cbKategori.Text) ||
-                string.IsNullOrWhiteSpace(txtBerat.Text) ||
-                string.IsNullOrWhiteSpace(txtStok.Text) ||
-                string.IsNullOrWhiteSpace(cbSatuan.Text) ||
-                string.IsNullOrWhiteSpace(txtHargaHarian.Text) ||
-                string.IsNullOrWhiteSpace(txtDendaHarian.Text))
+                string.IsNullOrWhiteSpace(cbSatuan.Text))
             {
-                MessageBox.Show("Semua field harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Harap isi semua field teks!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
                 AlatCamping alatBaru = GetAlatCamping();
-
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-            catch (FormatException)
-            {
-                MessageBox.Show("Tipe data tidak sesuai! Pastikan kolom Berat, Stok, Harga, dan Denda diisi dengan ANGKA murni.",
-                                "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(ex.Message, "Data Ditolak Sistem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Terjadi kesalahan sistem: {ex.Message}", "Error Sistem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Data Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -93,12 +116,5 @@ namespace SewaAlatCamping
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
-        // Added stub in case the designer wires a Click event for label5
-        private void label5_Click(object sender, EventArgs e)
-        {
-            // No action required for label clicks; stub to satisfy designer reference
-        }
-
     }
 }

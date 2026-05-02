@@ -58,6 +58,7 @@
             dgvAlat.Name = "dgvAlat";
             dgvAlat.Size = new Size(776, 351);
             dgvAlat.TabIndex = 0;
+            // EVENT YANG ERROR (CellContentClick) SUDAH SAYA HAPUS DI SINI
             dgvAlat.CellClick += dgvAlat_CellClick;
             // 
             // btnAdd
