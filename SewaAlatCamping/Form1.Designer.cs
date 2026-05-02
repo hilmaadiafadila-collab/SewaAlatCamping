@@ -67,7 +67,7 @@
             btnAdd.FlatAppearance.BorderSize = 0;
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAdd.ForeColor = Color.White;
+            btnAdd.ForeColor = Color.FromArgb(0, 64, 0);
             btnAdd.Location = new Point(12, 385);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(85, 35);
@@ -99,7 +99,7 @@
             btnUpdate.FlatAppearance.BorderSize = 0;
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnUpdate.ForeColor = Color.White;
+            btnUpdate.ForeColor = Color.Black;
             btnUpdate.Location = new Point(108, 385);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(85, 35);

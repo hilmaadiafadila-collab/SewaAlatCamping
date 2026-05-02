@@ -295,8 +295,8 @@
             // dtpTglMasuk
             // 
             dtpTglMasuk.CalendarForeColor = Color.Black;
-            dtpTglMasuk.CalendarMonthBackground = Color.White;
-            dtpTglMasuk.CalendarTitleBackColor = Color.White;
+            dtpTglMasuk.CalendarMonthBackground = Color.FromArgb(192, 255, 192);
+            dtpTglMasuk.CalendarTitleBackColor = Color.FromArgb(192, 255, 192);
             dtpTglMasuk.CalendarTitleForeColor = Color.Black;
             dtpTglMasuk.CalendarTrailingForeColor = Color.Black;
             dtpTglMasuk.Cursor = Cursors.IBeam;
