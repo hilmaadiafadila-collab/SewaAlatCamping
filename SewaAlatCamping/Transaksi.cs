@@ -8,9 +8,7 @@ namespace SewaAlatCamping
 {
     public class Transaksi
     {
-        // ==========================================
-        // 1. PRIVATE FIELDS
-        // ==========================================
+        // PRIVATE FIELDS
         private string idTransaksi;
         private string namaPenyewa;
         private string barangId;
@@ -19,9 +17,7 @@ namespace SewaAlatCamping
         private DateTime tglKembali;
         private decimal totalHarga;
 
-        // ==========================================
-        // 2. CONSTRUCTOR
-        // ==========================================
+        // CONSTRUCTOR
         public Transaksi(string idTransaksi, string namaPenyewa, string barangId,
                          int jumlah, DateTime tglSewa, DateTime tglKembali, decimal totalHarga)
         {
@@ -34,9 +30,7 @@ namespace SewaAlatCamping
             this.TotalHarga = totalHarga;
         }
 
-        // ==========================================
-        // 3. PROPERTIES WITH VALIDATION
-        // ==========================================
+        // PROPERTIES
         public string IdTransaksi
         {
             get { return idTransaksi; }
@@ -109,9 +103,7 @@ namespace SewaAlatCamping
             }
         }
 
-        // ==========================================
-        // 4. COMPUTED PROPERTY
-        // ==========================================
+
         public int DurasiHari
         {
             get

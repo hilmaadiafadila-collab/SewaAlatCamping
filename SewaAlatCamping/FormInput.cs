@@ -10,14 +10,8 @@ namespace SewaAlatCamping
 {
     public partial class FormInput : Form
     {
-        // ==========================================
-        // FIELDS
-        // ==========================================
         private readonly List<AlatCamping> _daftarAlat;
 
-        // ==========================================
-        // CONSTRUCTOR
-        // ==========================================
         public FormInput(List<AlatCamping> daftarAlat)
         {
             InitializeComponent();
@@ -26,30 +20,23 @@ namespace SewaAlatCamping
             InisialisasiForm();
         }
 
-        // ==========================================
-        // INISIALISASI
-        // ==========================================
         private void InisialisasiForm()
         {
-            // ID Transaksi otomatis, tidak bisa diedit
+
             txtIdTransaksi.Text = "TRX-" + DateTime.Now.ToString("yyMMddHHmmss");
             txtIdTransaksi.ReadOnly = true;
             txtIdTransaksi.BackColor = Color.LightGray;
 
-            // Isi ComboBox ID Barang dengan barang yang masih ada stoknya
             IsiComboBoxBarang();
 
-            // Total readonly, dihitung otomatis
             txtTotal.ReadOnly = true;
             txtTotal.BackColor = Color.LightYellow;
 
-            // Pasang event handler untuk auto-hitung total
             cbBarangId.SelectedIndexChanged += Control_Changed;
             numJumlah.ValueChanged += Control_Changed;
             dtpTglSewa.ValueChanged += Control_Changed;
             dtpTglKembali.ValueChanged += Control_Changed;
 
-            // Hitung awal
             HitungTotal();
         }
 
@@ -65,21 +52,14 @@ namespace SewaAlatCamping
                 cbBarangId.SelectedIndex = 0;
         }
 
-        // ==========================================
-        // HELPER: Ambil ID barang dari pilihan ComboBox
-        // ==========================================
         private string GetIdBarangDipilih()
         {
             if (cbBarangId.SelectedItem == null) return string.Empty;
             string teks = cbBarangId.SelectedItem.ToString();
-            // Format: "CMP-001 - Nama Barang (Stok: 5)" → ambil sebelum " - "
             int idx = teks.IndexOf(" - ");
             return idx >= 0 ? teks.Substring(0, idx) : teks;
         }
 
-        // ==========================================
-        // HITUNG TOTAL OTOMATIS
-        // ==========================================
         private void HitungTotal()
         {
             string idDipilih = GetIdBarangDipilih();
@@ -88,7 +68,7 @@ namespace SewaAlatCamping
             if (alatTerpilih != null)
             {
                 int totalHari = (dtpTglKembali.Value.Date - dtpTglSewa.Value.Date).Days;
-                if (totalHari <= 0) totalHari = 1; // minimal 1 hari
+                if (totalHari <= 0) totalHari = 1; 
 
                 decimal total = totalHari * alatTerpilih.HargaSetelahDiskon * (int)numJumlah.Value;
                 txtTotal.Text = "Rp " + total.ToString("N0");
@@ -101,14 +81,10 @@ namespace SewaAlatCamping
 
         private void Control_Changed(object sender, EventArgs e) => HitungTotal();
 
-        // ==========================================
-        // PUBLIC METHODS
-        // ==========================================
         public Transaksi GetTransaksi()
         {
             string idBarang = GetIdBarangDipilih();
 
-            // Parse angka dari "Rp 50.000" → "50000"
             string totalBersih = txtTotal.Text.Replace("Rp", "").Replace(".", "").Replace(",", "").Trim();
             decimal totalHarga = decimal.TryParse(totalBersih, out decimal parsed) ? parsed : 0;
 
@@ -128,7 +104,6 @@ namespace SewaAlatCamping
             txtIdTransaksi.Text = data.IdTransaksi;
             textNamaPenyewa.Text = data.NamaPenyewa;
 
-            // Pilih item di ComboBox berdasarkan BarangId
             for (int i = 0; i < cbBarangId.Items.Count; i++)
             {
                 if (cbBarangId.Items[i].ToString().StartsWith(data.BarangId))
@@ -144,9 +119,6 @@ namespace SewaAlatCamping
             txtTotal.Text = "Rp " + data.TotalHarga.ToString("N0");
         }
 
-        // ==========================================
-        // EVENT HANDLERS
-        // ==========================================
         private void btnTambah_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textNamaPenyewa.Text))
@@ -184,7 +156,6 @@ namespace SewaAlatCamping
 
             try
             {
-                // Kurangi stok barang
                 alatDipilih.KurangiStok(jumlahDiminta);
 
                 MessageBox.Show("Data penyewaan berhasil disimpan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);

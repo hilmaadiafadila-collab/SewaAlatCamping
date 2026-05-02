@@ -8,7 +8,6 @@ namespace SewaAlatCamping
 {
     public partial class Form1 : Form
     {
-        // Menyimpan data di RAM
         private List<AlatCamping> listDataAlat = new List<AlatCamping>();
         List<Transaksi> listTransaksi = new List<Transaksi>();
 
@@ -16,7 +15,6 @@ namespace SewaAlatCamping
         {
             InitializeComponent();
 
-            // Membuat sudut komponen melengkung
             BuatSudutMelengkung(btnAdd, 15);
             BuatSudutMelengkung(btnUpdate, 15);
             BuatSudutMelengkung(btnDelete, 15);
@@ -36,7 +34,6 @@ namespace SewaAlatCamping
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // MENGUBAH JUMLAH KOLOM MENJADI 12
             dgvAlat.ColumnCount = 12;
 
             // Memberi nama Header Tabel
@@ -53,36 +50,30 @@ namespace SewaAlatCamping
             dgvAlat.Columns[10].Name = "Harga Final";
             dgvAlat.Columns[11].Name = "Denda/Hari";
 
-            // Mengatur lebar kolom agar data tidak terpotong
-            dgvAlat.Columns[0].Width = 110; // ID
-            dgvAlat.Columns[1].Width = 130; // Nama
-            dgvAlat.Columns[7].Width = 100; // Tgl Masuk
-            dgvAlat.Columns[10].Width = 120; // Harga Final
+            dgvAlat.Columns[0].Width = 110; 
+            dgvAlat.Columns[1].Width = 130; 
+            dgvAlat.Columns[7].Width = 100; 
+            dgvAlat.Columns[10].Width = 120;
 
-            // Mencegah baris kosong ekstra di paling bawah tabel
             dgvAlat.AllowUserToAddRows = false;
             dgvAlat.ReadOnly = true;
             dgvAlat.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // ... (Ini letaknya di dalam method Form1_Load, setelah dgvAlat.SelectionMode = ...)
-
-            // Menambah data awal (Contoh 1)
             listDataAlat.Add(new AlatCamping(
-                "CMP-001",                   // IdBarang
-                "Tenda Dome 4P",             // NamaBarang
-                "Eiger",                     // MerkBarang
-                "Tent & Shelter",            // Kategori
-                3500,                        // BeratGram (double)
-                5,                           // Stok (int)
-                "Unit",                      // Satuan
-                new DateTime(2024, 1, 10),   // TanggalMasuk
-                50000m,                      // HargaHarian (wajib 'm' karena decimal)
-                10000m,                      // DendaHarian (wajib 'm' karena decimal)
-                false,                       // IsPromo (bool)
-                0m                           // DiskonPersen (wajib 'm' karena decimal)
+                "CMP-001",                   
+                "Tenda Dome 4P",             
+                "Eiger",                     
+                "Tent & Shelter",            
+                3500,                        
+                5,                           
+                "Unit",                      
+                new DateTime(2024, 1, 10),   
+                50000m,                      
+                10000m,                      
+                false,                       
+                0m                           
             ));
 
-            // Menambah data awal (Contoh 2)
             listDataAlat.Add(new AlatCamping(
                 "CMP-002",
                 "Carrier 60L",
@@ -98,8 +89,6 @@ namespace SewaAlatCamping
                 10m
             ));
 
-            // Refresh tabel menggunakan method yang sudah kita desain sebelumnya
-            // Jangan gunakan dgvAlat.DataSource = listDataAlat;
             TampilkanData();
         }
 
@@ -109,10 +98,8 @@ namespace SewaAlatCamping
 
             foreach (AlatCamping alat in listDataAlat)
             {
-                // Format teks diskon (Tampilkan persen jika ada promo, jika tidak tampilkan tanda strip)
                 string statusPromo = alat.IsPromo ? $"{alat.DiskonPersen}%" : "-";
 
-                // Memasukkan 12 data berurutan persis seperti urutan kolom di atas
                 dgvAlat.Rows.Add(
                     alat.IdBarang,
                     alat.NamaBarang,
@@ -166,34 +153,19 @@ namespace SewaAlatCamping
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            // 1. Pastikan ada baris tabel yang dipilih/diklik oleh pengguna
             if (dgvAlat.SelectedRows.Count > 0)
             {
-                // 2. Ambil index (urutan baris) yang diklik
                 int indexYangDipilih = dgvAlat.SelectedRows[0].Index;
 
-                // 3. Ambil objek data asli dari List berdasarkan index tersebut
                 AlatCamping dataLama = listDataAlat[indexYangDipilih];
-
-                // 4. Buka FormDataBaru
                 FormDataBaru formUpdate = new FormDataBaru();
 
-                // 5. [PENTING] Lempar data lama ke form agar kotak-kotaknya terisi otomatis!
                 formUpdate.IsiForm(dataLama);
-
-                // Ubah sedikit teks form agar pengguna tahu mereka sedang meng-update, bukan menambah baru (Opsional)
                 formUpdate.Text = "Update Data Barang";
-
-                // 6. Tampilkan form. Jika pengguna mengklik "Simpan"...
                 if (formUpdate.ShowDialog() == DialogResult.OK)
                 {
-                    // 7. Ambil objek data yang sudah selesai diedit
                     AlatCamping dataBaru = formUpdate.GetAlatCamping();
-
-                    // 8. Timpa/Ganti data lama di dalam gudang List dengan data yang baru
                     listDataAlat[indexYangDipilih] = dataBaru;
-
-                    // 9. Segarkan tampilan tabel agar data barunya muncul!
                     TampilkanData();
 
                     MessageBox.Show("Data berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -212,7 +184,6 @@ namespace SewaAlatCamping
 
         private void btnDataPenyewa_Click(object sender, EventArgs e)
         {
-            // Di Form1.cs
             DataTransaksi formPenyewa = new DataTransaksi(listDataAlat);
             formPenyewa.ShowDialog();
             TampilkanData();

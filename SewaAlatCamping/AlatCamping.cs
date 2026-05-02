@@ -6,9 +6,7 @@ namespace SewaAlatCamping
 {
     public class AlatCamping
     {
-        // ==========================================
-        // 1. PRIVATE FIELDS
-        // ==========================================
+        // PRIVATE FIELDS
         private string idBarang;
         private string namaBarang;
         private string merkBarang;
@@ -24,9 +22,7 @@ namespace SewaAlatCamping
         private bool isPromo;
         private decimal diskonPersen;
 
-        // ==========================================
-        // 2. CONSTRUCTOR
-        // ==========================================
+        // CONSTRUCTOR
         public AlatCamping(string idBarang, string namaBarang, string merkBarang, string kategori,
                            double beratGram, int stokAwal, string satuan, DateTime tanggalMasuk,
                            decimal hargaHarian, decimal dendaHarian, bool isPromo, decimal diskonPersen)
@@ -48,9 +44,7 @@ namespace SewaAlatCamping
             this.stok = stokAwal >= 0 ? stokAwal : 0;
         }
 
-        // ==========================================
-        // 3. PROPERTIES
-        // ==========================================
+        // PROPERTIES
         public string IdBarang { get { return idBarang; } }
         public string Kategori { get { return kategori; } }
         public string Satuan { get { return satuan; } }
@@ -115,9 +109,6 @@ namespace SewaAlatCamping
             stok -= jumlah;
         }
 
-        /// <summary>
-        /// Tambah stok kembali saat transaksi dibatalkan / barang dikembalikan.
-        /// </summary>
         public void TambahStok(int jumlah)
         {
             if (jumlah <= 0)
