@@ -52,12 +52,33 @@ namespace SewaAlatCamping
             {
                 IdTransaksi = txtIdTransaksi.Text,
                 NamaPenyewa = textNamaPenyewa.Text,
-                AlatYangDisewa = _daftarAlat.FirstOrDefault(x => x.IdBarang == txtBarangid.Text),
+                Barangid = txtBarangid.Text,
                 Jumlah = (int)numJumlah.Value,
                 TglSewa = dtpTglSewa.Value,
                 TglKembali = dtpTglKembali.Value,
                 TotalHarga = decimal.Parse(txtTotal.Text)
             };
+        }
+
+        // Tambahkan method ini di dalam FormInput.cs Anda
+
+        public void IsiForm(Transaksi data)
+        {
+            // PERHATIAN: 
+            // Ganti txtNamaPenyewa, txtAlat, dll di bawah ini 
+            // dengan nama TextBox/ComboBox yang benar-benar ada di desain FormInput Anda!
+
+            // Ganti juga data.NamaPenyewa dengan nama Properti yang ada di class Transaksi.cs Anda!
+
+            txtIdTransaksi.Text = data.IdTransaksi; // (Jika ID bisa diedit atau ditampilkan)
+            textNamaPenyewa.Text = data.NamaPenyewa;
+            txtBarangid.Text = data.Barangid;
+            dtpTglSewa.Value = data.TglSewa;
+            dtpTglKembali.Value = data.TglKembali;
+            numJumlah.Value = data.Jumlah;
+            txtTotal.Text = data.TotalHarga.ToString("N0");
+
+            // Tambahkan kotak input lainnya sesuai dengan kebutuhan transaksi Anda...
         }
         public FormInput()
         {
@@ -66,6 +87,18 @@ namespace SewaAlatCamping
 
         private void btnTambah_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(textNamaPenyewa.Text) ||
+            string.IsNullOrWhiteSpace(txtBarangid.Text))
+            {
+                MessageBox.Show("Harap isi semua kolom data terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Menghentikan proses simpan jika ada yang kosong
+            }
+
+            // 2. Logika Simpan Data (Sesuaikan dengan metode Anda, misal pakai List<T> atau Database)
+            // Contoh: TransaksiBaru(txtNamaPenyewa.Text, txtAlatDisewa.Text);
+
+            // 3. Memberikan pesan sukses
+            MessageBox.Show("Data penyewaan berhasil disimpan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
