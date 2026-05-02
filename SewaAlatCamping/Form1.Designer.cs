@@ -35,6 +35,7 @@
             btnAdd = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
+            btnDataPenyewa = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvAlat).BeginInit();
             SuspendLayout();
             // 
@@ -54,11 +55,10 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgvAlat.DefaultCellStyle = dataGridViewCellStyle2;
             dgvAlat.GridColor = Color.FromArgb(0, 64, 0);
-            dgvAlat.Location = new Point(12, 12);
+            dgvAlat.Location = new Point(12, 53);
             dgvAlat.Name = "dgvAlat";
-            dgvAlat.Size = new Size(776, 351);
+            dgvAlat.Size = new Size(776, 310);
             dgvAlat.TabIndex = 0;
-            // EVENT YANG ERROR (CellContentClick) SUDAH SAYA HAPUS DI SINI
             dgvAlat.CellClick += dgvAlat_CellClick;
             // 
             // btnAdd
@@ -109,6 +109,16 @@
             btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
+            // btnDataPenyewa
+            // 
+            btnDataPenyewa.Location = new Point(636, 12);
+            btnDataPenyewa.Name = "btnDataPenyewa";
+            btnDataPenyewa.Size = new Size(152, 23);
+            btnDataPenyewa.TabIndex = 4;
+            btnDataPenyewa.Text = "Data Penyewa";
+            btnDataPenyewa.UseVisualStyleBackColor = true;
+            btnDataPenyewa.Click += btnDataPenyewa_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -116,6 +126,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDataPenyewa);
             Controls.Add(btnUpdate);
             Controls.Add(btnDelete);
             Controls.Add(btnAdd);
@@ -134,5 +145,6 @@
         private Button btnAdd;
         private Button btnDelete;
         private Button btnUpdate;
+        private Button btnDataPenyewa;
     }
 }

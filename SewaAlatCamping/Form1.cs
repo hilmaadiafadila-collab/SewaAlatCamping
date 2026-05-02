@@ -10,6 +10,7 @@ namespace SewaAlatCamping
     {
         // Menyimpan data di RAM
         private List<AlatCamping> listDataAlat = new List<AlatCamping>();
+        List<Transaksi> listTransaksi = new List<Transaksi>();
 
         public Form1()
         {
@@ -62,6 +63,44 @@ namespace SewaAlatCamping
             dgvAlat.AllowUserToAddRows = false;
             dgvAlat.ReadOnly = true;
             dgvAlat.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // ... (Ini letaknya di dalam method Form1_Load, setelah dgvAlat.SelectionMode = ...)
+
+            // Menambah data awal (Contoh 1)
+            listDataAlat.Add(new AlatCamping(
+                "CMP-001",                   // IdBarang
+                "Tenda Dome 4P",             // NamaBarang
+                "Eiger",                     // MerkBarang
+                "Tent & Shelter",            // Kategori
+                3500,                        // BeratGram (double)
+                5,                           // Stok (int)
+                "Unit",                      // Satuan
+                new DateTime(2024, 1, 10),   // TanggalMasuk
+                50000m,                      // HargaHarian (wajib 'm' karena decimal)
+                10000m,                      // DendaHarian (wajib 'm' karena decimal)
+                false,                       // IsPromo (bool)
+                0m                           // DiskonPersen (wajib 'm' karena decimal)
+            ));
+
+            // Menambah data awal (Contoh 2)
+            listDataAlat.Add(new AlatCamping(
+                "CMP-002",
+                "Carrier 60L",
+                "Osprey",
+                "Hiking Gear",
+                1800,
+                3,
+                "Unit",
+                new DateTime(2024, 2, 15),
+                75000m,
+                15000m,
+                true,
+                10m
+            ));
+
+            // Refresh tabel menggunakan method yang sudah kita desain sebelumnya
+            // Jangan gunakan dgvAlat.DataSource = listDataAlat;
+            TampilkanData();
         }
 
         private void TampilkanData()
@@ -169,6 +208,11 @@ namespace SewaAlatCamping
         private void dgvAlat_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnDataPenyewa_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
