@@ -111,9 +111,16 @@
             // 
             // btnDataPenyewa
             // 
-            btnDataPenyewa.Location = new Point(636, 12);
+            btnDataPenyewa.BackColor = Color.FromArgb(200, 200, 255);
+            btnDataPenyewa.FlatAppearance.BorderSize = 0;
+            btnDataPenyewa.FlatStyle = FlatStyle.Flat;
+            btnDataPenyewa.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnDataPenyewa.ForeColor = Color.FromArgb(50, 50, 150);
+            btnDataPenyewa.Cursor = Cursors.Hand;
+            btnDataPenyewa.UseVisualStyleBackColor = false;
+            btnDataPenyewa.Location = new Point(610, 12);
             btnDataPenyewa.Name = "btnDataPenyewa";
-            btnDataPenyewa.Size = new Size(152, 23);
+            btnDataPenyewa.Size = new Size(178, 30);
             btnDataPenyewa.TabIndex = 4;
             btnDataPenyewa.Text = "Data Penyewa";
             btnDataPenyewa.UseVisualStyleBackColor = true;

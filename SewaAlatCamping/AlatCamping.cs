@@ -105,5 +105,24 @@ namespace SewaAlatCamping
             get { return dendaHarian; }
             set { if (value < 0) throw new ArgumentException("Denda Harian tidak valid!"); dendaHarian = value; }
         }
+
+        public void KurangiStok(int jumlah)
+        {
+            if (jumlah <= 0)
+                throw new ArgumentException("Jumlah yang dikurangi harus lebih dari 0.");
+            if (jumlah > stok)
+                throw new InvalidOperationException($"Stok tidak mencukupi. Stok tersedia: {stok}, diminta: {jumlah}.");
+            stok -= jumlah;
+        }
+
+        /// <summary>
+        /// Tambah stok kembali saat transaksi dibatalkan / barang dikembalikan.
+        /// </summary>
+        public void TambahStok(int jumlah)
+        {
+            if (jumlah <= 0)
+                throw new ArgumentException("Jumlah yang ditambahkan harus lebih dari 0.");
+            stok += jumlah;
+        }
     }
 }

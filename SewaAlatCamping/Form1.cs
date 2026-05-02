@@ -212,8 +212,10 @@ namespace SewaAlatCamping
 
         private void btnDataPenyewa_Click(object sender, EventArgs e)
         {
-            DataTransaksi formPenyewa = new DataTransaksi();
+            // Di Form1.cs
+            DataTransaksi formPenyewa = new DataTransaksi(listDataAlat);
             formPenyewa.ShowDialog();
+            TampilkanData();
         }
     }
 }

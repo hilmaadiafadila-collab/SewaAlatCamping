@@ -10,114 +10,197 @@ namespace SewaAlatCamping
 {
     public partial class FormInput : Form
     {
-        private List<AlatCamping> _daftarAlat;
+        // ==========================================
+        // FIELDS
+        // ==========================================
+        private readonly List<AlatCamping> _daftarAlat;
 
+        // ==========================================
+        // CONSTRUCTOR
+        // ==========================================
         public FormInput(List<AlatCamping> daftarAlat)
         {
             InitializeComponent();
-            _daftarAlat = daftarAlat;
+            _daftarAlat = daftarAlat ?? throw new ArgumentNullException(nameof(daftarAlat));
+
+            InisialisasiForm();
         }
 
-        // Constructor menerima kiriman list barang dari Form1
+        // ==========================================
+        // INISIALISASI
+        // ==========================================
+        private void InisialisasiForm()
+        {
+            // ID Transaksi otomatis, tidak bisa diedit
+            txtIdTransaksi.Text = "TRX-" + DateTime.Now.ToString("yyMMddHHmmss");
+            txtIdTransaksi.ReadOnly = true;
+            txtIdTransaksi.BackColor = Color.LightGray;
+
+            // Isi ComboBox ID Barang dengan barang yang masih ada stoknya
+            IsiComboBoxBarang();
+
+            // Total readonly, dihitung otomatis
+            txtTotal.ReadOnly = true;
+            txtTotal.BackColor = Color.LightYellow;
+
+            // Pasang event handler untuk auto-hitung total
+            cbBarangId.SelectedIndexChanged += Control_Changed;
+            numJumlah.ValueChanged += Control_Changed;
+            dtpTglSewa.ValueChanged += Control_Changed;
+            dtpTglKembali.ValueChanged += Control_Changed;
+
+            // Hitung awal
+            HitungTotal();
+        }
+
+        private void IsiComboBoxBarang()
+        {
+            cbBarangId.Items.Clear();
+            foreach (AlatCamping alat in _daftarAlat)
+            {
+                if (alat.Stok > 0)
+                    cbBarangId.Items.Add($"{alat.IdBarang} - {alat.NamaBarang} (Stok: {alat.Stok})");
+            }
+            if (cbBarangId.Items.Count > 0)
+                cbBarangId.SelectedIndex = 0;
+        }
+
+        // ==========================================
+        // HELPER: Ambil ID barang dari pilihan ComboBox
+        // ==========================================
+        private string GetIdBarangDipilih()
+        {
+            if (cbBarangId.SelectedItem == null) return string.Empty;
+            string teks = cbBarangId.SelectedItem.ToString();
+            // Format: "CMP-001 - Nama Barang (Stok: 5)" → ambil sebelum " - "
+            int idx = teks.IndexOf(" - ");
+            return idx >= 0 ? teks.Substring(0, idx) : teks;
+        }
+
+        // ==========================================
+        // HITUNG TOTAL OTOMATIS
+        // ==========================================
         private void HitungTotal()
         {
-            // Cari alat di dalam list yang ID-nya cocok dengan yang diketik di TextBox
-            // Ganti 'txtBarangid' dengan nama (Name) TextBox ID Barang Anda
-            var alatTerpilih = _daftarAlat.FirstOrDefault(x => x.IdBarang == txtBarangid.Text);
+            string idDipilih = GetIdBarangDipilih();
+            AlatCamping alatTerpilih = _daftarAlat.FirstOrDefault(x => x.IdBarang == idDipilih);
 
             if (alatTerpilih != null)
             {
-                // Hitung selisih hari
-                TimeSpan selisih = dtpTglKembali.Value - dtpTglSewa.Value;
-                int totalHari = selisih.Days;
-                if (totalHari <= 0) totalHari = 1; // Minimal sewa 1 hari
+                int totalHari = (dtpTglKembali.Value.Date - dtpTglSewa.Value.Date).Days;
+                if (totalHari <= 0) totalHari = 1; // minimal 1 hari
 
-                // Hitung total: Hari * Harga Barang * Jumlah Unit
-                decimal total = totalHari * alatTerpilih.HargaHarian * numJumlah.Value;
-
-                // Tampilkan ke TextBox Total
-                txtTotal.Text = total.ToString("N0");
+                decimal total = totalHari * alatTerpilih.HargaSetelahDiskon * (int)numJumlah.Value;
+                txtTotal.Text = "Rp " + total.ToString("N0");
             }
             else
             {
-                txtTotal.Text = "0"; // Jika ID barang tidak ditemukan
+                txtTotal.Text = "Rp 0";
             }
         }
 
         private void Control_Changed(object sender, EventArgs e) => HitungTotal();
 
+        // ==========================================
+        // PUBLIC METHODS
+        // ==========================================
         public Transaksi GetTransaksi()
         {
-            return new Transaksi
-            {
-                IdTransaksi = txtIdTransaksi.Text,
-                NamaPenyewa = textNamaPenyewa.Text,
-                Barangid = txtBarangid.Text,
-                Jumlah = (int)numJumlah.Value,
-                TglSewa = dtpTglSewa.Value,
-                TglKembali = dtpTglKembali.Value,
-                TotalHarga = decimal.Parse(txtTotal.Text)
-            };
-        }
+            string idBarang = GetIdBarangDipilih();
 
-        // Tambahkan method ini di dalam FormInput.cs Anda
+            // Parse angka dari "Rp 50.000" → "50000"
+            string totalBersih = txtTotal.Text.Replace("Rp", "").Replace(".", "").Replace(",", "").Trim();
+            decimal totalHarga = decimal.TryParse(totalBersih, out decimal parsed) ? parsed : 0;
+
+            return new Transaksi(
+                txtIdTransaksi.Text,
+                textNamaPenyewa.Text,
+                idBarang,
+                (int)numJumlah.Value,
+                dtpTglSewa.Value.Date,
+                dtpTglKembali.Value.Date,
+                totalHarga
+            );
+        }
 
         public void IsiForm(Transaksi data)
         {
-            // PERHATIAN: 
-            // Ganti txtNamaPenyewa, txtAlat, dll di bawah ini 
-            // dengan nama TextBox/ComboBox yang benar-benar ada di desain FormInput Anda!
-
-            // Ganti juga data.NamaPenyewa dengan nama Properti yang ada di class Transaksi.cs Anda!
-
-            txtIdTransaksi.Text = data.IdTransaksi; // (Jika ID bisa diedit atau ditampilkan)
+            txtIdTransaksi.Text = data.IdTransaksi;
             textNamaPenyewa.Text = data.NamaPenyewa;
-            txtBarangid.Text = data.Barangid;
-            dtpTglSewa.Value = data.TglSewa;
-            dtpTglKembali.Value = data.TglKembali;
-            numJumlah.Value = data.Jumlah;
-            txtTotal.Text = data.TotalHarga.ToString("N0");
 
-            // Tambahkan kotak input lainnya sesuai dengan kebutuhan transaksi Anda...
-        }
-        public FormInput()
-        {
-            InitializeComponent();
-        }
-
-        private void btnTambah_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textNamaPenyewa.Text) ||
-            string.IsNullOrWhiteSpace(txtBarangid.Text))
+            // Pilih item di ComboBox berdasarkan BarangId
+            for (int i = 0; i < cbBarangId.Items.Count; i++)
             {
-                MessageBox.Show("Harap isi semua kolom data terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Menghentikan proses simpan jika ada yang kosong
+                if (cbBarangId.Items[i].ToString().StartsWith(data.BarangId))
+                {
+                    cbBarangId.SelectedIndex = i;
+                    break;
+                }
             }
 
-            // 2. Logika Simpan Data (Sesuaikan dengan metode Anda, misal pakai List<T> atau Database)
-            // Contoh: TransaksiBaru(txtNamaPenyewa.Text, txtAlatDisewa.Text);
-
-            // 3. Memberikan pesan sukses
-            MessageBox.Show("Data penyewaan berhasil disimpan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            numJumlah.Value = data.Jumlah;
+            dtpTglSewa.Value = data.TglSewa;
+            dtpTglKembali.Value = data.TglKembali;
+            txtTotal.Text = "Rp " + data.TotalHarga.ToString("N0");
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        // ==========================================
+        // EVENT HANDLERS
+        // ==========================================
+        private void btnTambah_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(textNamaPenyewa.Text))
+            {
+                MessageBox.Show("Harap isi Nama Penyewa!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbBarangId.SelectedItem == null)
+            {
+                MessageBox.Show("Harap pilih ID Barang!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (dtpTglKembali.Value.Date <= dtpTglSewa.Value.Date)
+            {
+                MessageBox.Show("Tanggal kembali harus setelah tanggal sewa!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-        }
+            string idBarang = GetIdBarangDipilih();
+            AlatCamping alatDipilih = _daftarAlat.FirstOrDefault(x => x.IdBarang == idBarang);
 
-        private void label17_Click(object sender, EventArgs e)
-        {
+            if (alatDipilih == null)
+            {
+                MessageBox.Show("Barang tidak ditemukan!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            int jumlahDiminta = (int)numJumlah.Value;
+            if (jumlahDiminta > alatDipilih.Stok)
+            {
+                MessageBox.Show($"Stok tidak mencukupi!\nStok tersedia: {alatDipilih.Stok}\nJumlah diminta: {jumlahDiminta}",
+                                "Stok Kurang", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Kurangi stok barang
+                alatDipilih.KurangiStok(jumlahDiminta);
+
+                MessageBox.Show("Data penyewaan berhasil disimpan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBatal_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-
         }
     }
 }

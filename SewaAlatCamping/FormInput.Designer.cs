@@ -2,383 +2,272 @@
 {
     partial class FormInput
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInput));
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
-            label11 = new Label();
-            label10 = new Label();
-            label12 = new Label();
-            label13 = new Label();
-            label14 = new Label();
-            label15 = new Label();
-            label16 = new Label();
-            label17 = new Label();
-            label18 = new Label();
-            btnSimpan = new Button();
-            btnBatal = new Button();
+            lblJudul = new Label();
+            lblIdTransaksi = new Label();
+            lblNamaPenyewa = new Label();
+            lblIdBarang = new Label();
+            lblJumlah = new Label();
+            lblTglSewa = new Label();
+            lblTglKembali = new Label();
+            lblTotal = new Label();
             txtIdTransaksi = new TextBox();
             textNamaPenyewa = new TextBox();
-            txtBarangid = new TextBox();
-            dtpTglKembali = new DateTimePicker();
+            cbBarangId = new ComboBox();
             numJumlah = new NumericUpDown();
-            txtTotal = new TextBox();
             dtpTglSewa = new DateTimePicker();
+            dtpTglKembali = new DateTimePicker();
+            txtTotal = new TextBox();
+            btnSimpan = new Button();
+            btnBatal = new Button();
             ((System.ComponentModel.ISupportInitialize)numJumlah).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // lblJudul
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(350, 29);
-            label1.Name = "label1";
-            label1.Size = new Size(0, 15);
-            label1.TabIndex = 0;
+            lblJudul.AutoSize = true;
+            lblJudul.BackColor = Color.Transparent;
+            lblJudul.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lblJudul.ForeColor = Color.FromArgb(0, 64, 0);
+            lblJudul.Image = (Image)resources.GetObject("lblJudul.Image");
+            lblJudul.Location = new Point(240, 20);
+            lblJudul.Name = "lblJudul";
+            lblJudul.Size = new Size(285, 37);
+            lblJudul.TabIndex = 0;
+            lblJudul.Text = "Form Input Transaksi";
             // 
-            // label2
+            // lblIdTransaksi
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(156, 80);
-            label2.Name = "label2";
-            label2.Size = new Size(0, 15);
-            label2.TabIndex = 1;
+            lblIdTransaksi.AutoSize = true;
+            lblIdTransaksi.BackColor = Color.Transparent;
+            lblIdTransaksi.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblIdTransaksi.ForeColor = Color.FromArgb(192, 255, 192);
+            lblIdTransaksi.Image = (Image)resources.GetObject("lblIdTransaksi.Image");
+            lblIdTransaksi.Location = new Point(162, 80);
+            lblIdTransaksi.Name = "lblIdTransaksi";
+            lblIdTransaksi.Size = new Size(84, 19);
+            lblIdTransaksi.TabIndex = 1;
+            lblIdTransaksi.Text = "ID Transaksi";
             // 
-            // label3
+            // lblNamaPenyewa
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(156, 117);
-            label3.Name = "label3";
-            label3.Size = new Size(0, 15);
-            label3.TabIndex = 2;
+            lblNamaPenyewa.AutoSize = true;
+            lblNamaPenyewa.BackColor = Color.Transparent;
+            lblNamaPenyewa.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblNamaPenyewa.ForeColor = Color.FromArgb(192, 255, 192);
+            lblNamaPenyewa.Image = (Image)resources.GetObject("lblNamaPenyewa.Image");
+            lblNamaPenyewa.Location = new Point(162, 120);
+            lblNamaPenyewa.Name = "lblNamaPenyewa";
+            lblNamaPenyewa.Size = new Size(105, 19);
+            lblNamaPenyewa.TabIndex = 2;
+            lblNamaPenyewa.Text = "Nama Penyewa";
             // 
-            // label4
+            // lblIdBarang
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(156, 202);
-            label4.Name = "label4";
-            label4.Size = new Size(0, 15);
-            label4.TabIndex = 3;
-            label4.Click += label4_Click;
+            lblIdBarang.AutoSize = true;
+            lblIdBarang.BackColor = Color.Transparent;
+            lblIdBarang.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblIdBarang.ForeColor = Color.FromArgb(192, 255, 192);
+            lblIdBarang.Image = (Image)resources.GetObject("lblIdBarang.Image");
+            lblIdBarang.Location = new Point(162, 160);
+            lblIdBarang.Name = "lblIdBarang";
+            lblIdBarang.Size = new Size(70, 19);
+            lblIdBarang.TabIndex = 3;
+            lblIdBarang.Text = "ID Barang";
             // 
-            // label5
+            // lblJumlah
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(156, 160);
-            label5.Name = "label5";
-            label5.Size = new Size(0, 15);
-            label5.TabIndex = 4;
+            lblJumlah.AutoSize = true;
+            lblJumlah.BackColor = Color.Transparent;
+            lblJumlah.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblJumlah.ForeColor = Color.FromArgb(192, 255, 192);
+            lblJumlah.Image = (Image)resources.GetObject("lblJumlah.Image");
+            lblJumlah.Location = new Point(162, 200);
+            lblJumlah.Name = "lblJumlah";
+            lblJumlah.Size = new Size(54, 19);
+            lblJumlah.TabIndex = 4;
+            lblJumlah.Text = "Jumlah";
             // 
-            // label6
+            // lblTglSewa
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(156, 242);
-            label6.Name = "label6";
-            label6.Size = new Size(0, 15);
-            label6.TabIndex = 5;
+            lblTglSewa.AutoSize = true;
+            lblTglSewa.BackColor = Color.Transparent;
+            lblTglSewa.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblTglSewa.ForeColor = Color.FromArgb(192, 255, 192);
+            lblTglSewa.Image = (Image)resources.GetObject("lblTglSewa.Image");
+            lblTglSewa.Location = new Point(162, 240);
+            lblTglSewa.Name = "lblTglSewa";
+            lblTglSewa.Size = new Size(95, 19);
+            lblTglSewa.TabIndex = 5;
+            lblTglSewa.Text = "Tanggal Sewa";
             // 
-            // label7
+            // lblTglKembali
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(156, 282);
-            label7.Name = "label7";
-            label7.Size = new Size(0, 15);
-            label7.TabIndex = 6;
+            lblTglKembali.AutoSize = true;
+            lblTglKembali.BackColor = Color.Transparent;
+            lblTglKembali.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblTglKembali.ForeColor = Color.FromArgb(192, 255, 192);
+            lblTglKembali.Image = (Image)resources.GetObject("lblTglKembali.Image");
+            lblTglKembali.Location = new Point(162, 280);
+            lblTglKembali.Name = "lblTglKembali";
+            lblTglKembali.Size = new Size(113, 19);
+            lblTglKembali.TabIndex = 6;
+            lblTglKembali.Text = "Tanggal Kembali";
             // 
-            // label8
+            // lblTotal
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(156, 316);
-            label8.Name = "label8";
-            label8.Size = new Size(0, 15);
-            label8.TabIndex = 7;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(156, 356);
-            label9.Name = "label9";
-            label9.Size = new Size(0, 15);
-            label9.TabIndex = 8;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.BackColor = Color.Transparent;
-            label11.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.ForeColor = Color.FromArgb(0, 64, 0);
-            label11.Image = (Image)resources.GetObject("label11.Image");
-            label11.Location = new Point(265, 29);
-            label11.Name = "label11";
-            label11.Size = new Size(285, 37);
-            label11.TabIndex = 17;
-            label11.Text = "Form Input Transaksi";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.BackColor = Color.Transparent;
-            label10.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.ForeColor = Color.FromArgb(192, 255, 192);
-            label10.Image = (Image)resources.GetObject("label10.Image");
-            label10.Location = new Point(162, 94);
-            label10.Name = "label10";
-            label10.Size = new Size(84, 19);
-            label10.TabIndex = 27;
-            label10.Text = "ID Transaksi";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.BackColor = Color.Transparent;
-            label12.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.ForeColor = Color.FromArgb(192, 255, 192);
-            label12.Image = (Image)resources.GetObject("label12.Image");
-            label12.Location = new Point(162, 129);
-            label12.Name = "label12";
-            label12.Size = new Size(105, 19);
-            label12.TabIndex = 28;
-            label12.Text = "Nama Penyewa";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.BackColor = Color.Transparent;
-            label13.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = Color.FromArgb(192, 255, 192);
-            label13.Image = (Image)resources.GetObject("label13.Image");
-            label13.Location = new Point(164, 160);
-            label13.Name = "label13";
-            label13.Size = new Size(70, 19);
-            label13.TabIndex = 29;
-            label13.Text = "ID Barang";
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.BackColor = Color.Transparent;
-            label14.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = Color.FromArgb(192, 255, 192);
-            label14.Image = (Image)resources.GetObject("label14.Image");
-            label14.Location = new Point(162, 198);
-            label14.Name = "label14";
-            label14.Size = new Size(54, 19);
-            label14.TabIndex = 30;
-            label14.Text = "Jumlah";
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.BackColor = Color.Transparent;
-            label15.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.ForeColor = Color.FromArgb(192, 255, 192);
-            label15.Image = (Image)resources.GetObject("label15.Image");
-            label15.Location = new Point(162, 238);
-            label15.Name = "label15";
-            label15.Size = new Size(0, 19);
-            label15.TabIndex = 31;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.BackColor = Color.Transparent;
-            label16.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.ForeColor = Color.FromArgb(192, 255, 192);
-            label16.Image = (Image)resources.GetObject("label16.Image");
-            label16.Location = new Point(162, 238);
-            label16.Name = "label16";
-            label16.Size = new Size(95, 19);
-            label16.TabIndex = 32;
-            label16.Text = "Tanggal Sewa";
-            // 
-            // label17
-            // 
-            label17.AutoSize = true;
-            label17.BackColor = Color.Transparent;
-            label17.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label17.ForeColor = Color.FromArgb(192, 255, 192);
-            label17.Image = (Image)resources.GetObject("label17.Image");
-            label17.Location = new Point(162, 278);
-            label17.Name = "label17";
-            label17.Size = new Size(113, 19);
-            label17.TabIndex = 33;
-            label17.Text = "Tanggal Kembali";
-            label17.Click += label17_Click;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.BackColor = Color.Transparent;
-            label18.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label18.ForeColor = Color.FromArgb(192, 255, 192);
-            label18.Image = (Image)resources.GetObject("label18.Image");
-            label18.Location = new Point(162, 316);
-            label18.Name = "label18";
-            label18.Size = new Size(40, 19);
-            label18.TabIndex = 34;
-            label18.Text = "Total";
-            // 
-            // btnSimpan
-            // 
-            btnSimpan.BackColor = Color.SeaGreen;
-            btnSimpan.Cursor = Cursors.Hand;
-            btnSimpan.FlatAppearance.BorderSize = 0;
-            btnSimpan.FlatStyle = FlatStyle.Flat;
-            btnSimpan.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnSimpan.ForeColor = Color.White;
-            btnSimpan.Location = new Point(453, 390);
-            btnSimpan.Name = "btnSimpan";
-            btnSimpan.Size = new Size(80, 32);
-            btnSimpan.TabIndex = 35;
-            btnSimpan.Text = "Simpan";
-            btnSimpan.UseVisualStyleBackColor = false;
-            btnSimpan.Click += this.btnTambah_Click;
-            // 
-            // btnBatal
-            // 
-            btnBatal.BackColor = Color.LightPink;
-            btnBatal.Cursor = Cursors.Hand;
-            btnBatal.FlatAppearance.BorderSize = 0;
-            btnBatal.FlatStyle = FlatStyle.Flat;
-            btnBatal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnBatal.ForeColor = Color.DarkRed;
-            btnBatal.Location = new Point(547, 390);
-            btnBatal.Name = "btnBatal";
-            btnBatal.Size = new Size(80, 32);
-            btnBatal.TabIndex = 36;
-            btnBatal.Text = "Batal";
-            btnBatal.UseVisualStyleBackColor = false;
-            btnBatal.Click += btnBatal_Click;
+            lblTotal.AutoSize = true;
+            lblTotal.BackColor = Color.Transparent;
+            lblTotal.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblTotal.ForeColor = Color.FromArgb(192, 255, 192);
+            lblTotal.Image = (Image)resources.GetObject("lblTotal.Image");
+            lblTotal.Location = new Point(162, 320);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(81, 19);
+            lblTotal.TabIndex = 7;
+            lblTotal.Text = "Total Harga";
             // 
             // txtIdTransaksi
             // 
             txtIdTransaksi.BackColor = Color.FromArgb(192, 255, 192);
-            txtIdTransaksi.BorderStyle = BorderStyle.None;
-            txtIdTransaksi.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtIdTransaksi.Location = new Point(305, 94);
+            txtIdTransaksi.BorderStyle = BorderStyle.FixedSingle;
+            txtIdTransaksi.Font = new Font("Segoe UI", 10F);
+            txtIdTransaksi.Location = new Point(305, 78);
             txtIdTransaksi.Name = "txtIdTransaksi";
-            txtIdTransaksi.Size = new Size(322, 20);
-            txtIdTransaksi.TabIndex = 37;
+            txtIdTransaksi.Size = new Size(322, 25);
+            txtIdTransaksi.TabIndex = 0;
             // 
             // textNamaPenyewa
             // 
             textNamaPenyewa.BackColor = Color.FromArgb(192, 255, 192);
-            textNamaPenyewa.BorderStyle = BorderStyle.None;
-            textNamaPenyewa.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textNamaPenyewa.Location = new Point(305, 129);
+            textNamaPenyewa.BorderStyle = BorderStyle.FixedSingle;
+            textNamaPenyewa.Font = new Font("Segoe UI", 10F);
+            textNamaPenyewa.Location = new Point(305, 118);
             textNamaPenyewa.Name = "textNamaPenyewa";
-            textNamaPenyewa.Size = new Size(322, 20);
-            textNamaPenyewa.TabIndex = 38;
+            textNamaPenyewa.Size = new Size(322, 25);
+            textNamaPenyewa.TabIndex = 1;
             // 
-            // txtBarangid
+            // cbBarangId
             // 
-            txtBarangid.BackColor = Color.FromArgb(192, 255, 192);
-            txtBarangid.BorderStyle = BorderStyle.None;
-            txtBarangid.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtBarangid.Location = new Point(305, 164);
-            txtBarangid.Name = "txtBarangid";
-            txtBarangid.Size = new Size(322, 20);
-            txtBarangid.TabIndex = 40;
-            // 
-            // dtpTglKembali
-            // 
-            dtpTglKembali.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtpTglKembali.Location = new Point(305, 274);
-            dtpTglKembali.Name = "dtpTglKembali";
-            dtpTglKembali.Size = new Size(322, 25);
-            dtpTglKembali.TabIndex = 43;
+            cbBarangId.BackColor = Color.FromArgb(192, 255, 192);
+            cbBarangId.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbBarangId.Font = new Font("Segoe UI", 10F);
+            cbBarangId.Location = new Point(305, 158);
+            cbBarangId.Name = "cbBarangId";
+            cbBarangId.Size = new Size(322, 25);
+            cbBarangId.TabIndex = 2;
             // 
             // numJumlah
             // 
             numJumlah.BackColor = Color.FromArgb(192, 255, 192);
-            numJumlah.Location = new Point(305, 200);
+            numJumlah.Font = new Font("Segoe UI", 10F);
+            numJumlah.Location = new Point(305, 198);
             numJumlah.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numJumlah.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numJumlah.Name = "numJumlah";
-            numJumlah.Size = new Size(322, 23);
-            numJumlah.TabIndex = 44;
+            numJumlah.Size = new Size(322, 25);
+            numJumlah.TabIndex = 3;
+            numJumlah.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // dtpTglSewa
+            // 
+            dtpTglSewa.Font = new Font("Segoe UI", 10F);
+            dtpTglSewa.Location = new Point(305, 238);
+            dtpTglSewa.Name = "dtpTglSewa";
+            dtpTglSewa.Size = new Size(322, 25);
+            dtpTglSewa.TabIndex = 4;
+            // 
+            // dtpTglKembali
+            // 
+            dtpTglKembali.Font = new Font("Segoe UI", 10F);
+            dtpTglKembali.Location = new Point(305, 278);
+            dtpTglKembali.Name = "dtpTglKembali";
+            dtpTglKembali.Size = new Size(322, 25);
+            dtpTglKembali.TabIndex = 5;
             // 
             // txtTotal
             // 
             txtTotal.BackColor = Color.FromArgb(192, 255, 192);
-            txtTotal.BorderStyle = BorderStyle.None;
-            txtTotal.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtTotal.Location = new Point(305, 316);
+            txtTotal.BorderStyle = BorderStyle.FixedSingle;
+            txtTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            txtTotal.ForeColor = Color.FromArgb(0, 100, 0);
+            txtTotal.Location = new Point(305, 318);
             txtTotal.Name = "txtTotal";
-            txtTotal.Size = new Size(322, 20);
-            txtTotal.TabIndex = 45;
+            txtTotal.ReadOnly = true;
+            txtTotal.Size = new Size(322, 25);
+            txtTotal.TabIndex = 6;
             // 
-            // dtpTglSewa
+            // btnSimpan
             // 
-            dtpTglSewa.Location = new Point(305, 236);
-            dtpTglSewa.Name = "dtpTglSewa";
-            dtpTglSewa.Size = new Size(322, 23);
-            dtpTglSewa.TabIndex = 46;
+            btnSimpan.BackColor = Color.FromArgb(180, 230, 180);
+            btnSimpan.Cursor = Cursors.Hand;
+            btnSimpan.FlatAppearance.BorderSize = 0;
+            btnSimpan.FlatStyle = FlatStyle.Flat;
+            btnSimpan.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSimpan.ForeColor = Color.FromArgb(0, 64, 0);
+            btnSimpan.Location = new Point(430, 380);
+            btnSimpan.Name = "btnSimpan";
+            btnSimpan.Size = new Size(90, 35);
+            btnSimpan.TabIndex = 7;
+            btnSimpan.Text = "Simpan";
+            btnSimpan.UseVisualStyleBackColor = false;
+            btnSimpan.Click += btnTambah_Click;
+            // 
+            // btnBatal
+            // 
+            btnBatal.BackColor = Color.FromArgb(255, 192, 203);
+            btnBatal.Cursor = Cursors.Hand;
+            btnBatal.FlatAppearance.BorderSize = 0;
+            btnBatal.FlatStyle = FlatStyle.Flat;
+            btnBatal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnBatal.ForeColor = Color.FromArgb(139, 0, 0);
+            btnBatal.Location = new Point(534, 380);
+            btnBatal.Name = "btnBatal";
+            btnBatal.Size = new Size(90, 35);
+            btnBatal.TabIndex = 8;
+            btnBatal.Text = "Batal";
+            btnBatal.UseVisualStyleBackColor = false;
+            btnBatal.Click += btnBatal_Click;
             // 
             // FormInput
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(800, 450);
-            Controls.Add(dtpTglSewa);
-            Controls.Add(txtTotal);
-            Controls.Add(numJumlah);
-            Controls.Add(dtpTglKembali);
-            Controls.Add(txtBarangid);
-            Controls.Add(textNamaPenyewa);
+            Controls.Add(lblJudul);
+            Controls.Add(lblIdTransaksi);
             Controls.Add(txtIdTransaksi);
-            Controls.Add(btnBatal);
+            Controls.Add(lblNamaPenyewa);
+            Controls.Add(textNamaPenyewa);
+            Controls.Add(lblIdBarang);
+            Controls.Add(cbBarangId);
+            Controls.Add(lblJumlah);
+            Controls.Add(numJumlah);
+            Controls.Add(lblTglSewa);
+            Controls.Add(dtpTglSewa);
+            Controls.Add(lblTglKembali);
+            Controls.Add(dtpTglKembali);
+            Controls.Add(lblTotal);
+            Controls.Add(txtTotal);
             Controls.Add(btnSimpan);
-            Controls.Add(label18);
-            Controls.Add(label17);
-            Controls.Add(label16);
-            Controls.Add(label15);
-            Controls.Add(label14);
-            Controls.Add(label13);
-            Controls.Add(label12);
-            Controls.Add(label10);
-            Controls.Add(label11);
-            Controls.Add(label9);
-            Controls.Add(label8);
-            Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(btnBatal);
             Name = "FormInput";
-            Text = "FormPenyewa";
+            Text = "Form Input Transaksi";
             ((System.ComponentModel.ISupportInitialize)numJumlah).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -386,34 +275,23 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
-        private Label label11;
-        private Label label10;
-        private Label label12;
-        private Label label13;
-        private Label label14;
-        private Label label15;
-        private Label label16;
-        private Label label17;
-        private Label label18;
-        private Button btnSimpan;
-        private Button btnBatal;
+        private Label lblJudul;
+        private Label lblIdTransaksi;
+        private Label lblNamaPenyewa;
+        private Label lblIdBarang;
+        private Label lblJumlah;
+        private Label lblTglSewa;
+        private Label lblTglKembali;
+        private Label lblTotal;
+
         private TextBox txtIdTransaksi;
         private TextBox textNamaPenyewa;
-        private TextBox textBox2;
-        private TextBox txtBarangid;
-        private DateTimePicker dtpTglMasuk;
-        private DateTimePicker dtpTglKembali;
+        private ComboBox cbBarangId;
         private NumericUpDown numJumlah;
-        private TextBox txtTotal;
         private DateTimePicker dtpTglSewa;
+        private DateTimePicker dtpTglKembali;
+        private TextBox txtTotal;
+        private Button btnSimpan;
+        private Button btnBatal;
     }
 }

@@ -10,141 +10,175 @@ namespace SewaAlatCamping
 {
     public partial class DataTransaksi : Form
     {
+        // ==========================================
+        // FIELDS
+        // ==========================================
         private List<Transaksi> listDataTransaksi = new List<Transaksi>();
+        private readonly List<AlatCamping> _daftarAlat;
 
-
-        public DataTransaksi()
+        // ==========================================
+        // CONSTRUCTOR
+        // ==========================================
+        public DataTransaksi(List<AlatCamping> daftarAlat)
         {
             InitializeComponent();
+            _daftarAlat = daftarAlat ?? throw new ArgumentNullException(nameof(daftarAlat));
         }
 
+        // ==========================================
+        // FORM LOAD
+        // ==========================================
         private void DataTransaksi_Load(object sender, EventArgs e)
         {
-            // Mengatur kolom DataGridView secara manual (jika tidak diatur lewat Design)
+            // Setup kolom DataGridView
             dgvDataPenyewa.ColumnCount = 7;
-
             dgvDataPenyewa.Columns[0].Name = "ID Transaksi";
             dgvDataPenyewa.Columns[1].Name = "Nama Penyewa";
             dgvDataPenyewa.Columns[2].Name = "ID Barang";
-            dgvDataPenyewa.Columns[3].Name = "Tgl Sewa";
-            dgvDataPenyewa.Columns[4].Name = "Tgl Kembali";
-            dgvDataPenyewa.Columns[5].Name = "Jumlah";
+            dgvDataPenyewa.Columns[3].Name = "Jumlah";
+            dgvDataPenyewa.Columns[4].Name = "Tgl Sewa";
+            dgvDataPenyewa.Columns[5].Name = "Tgl Kembali";
             dgvDataPenyewa.Columns[6].Name = "Total Harga";
 
-            // Merapikan tampilan tabel agar lebih profesional
+            dgvDataPenyewa.Columns[0].Width = 120;
+            dgvDataPenyewa.Columns[1].Width = 140;
+            dgvDataPenyewa.Columns[6].Width = 120;
+
             dgvDataPenyewa.AllowUserToAddRows = false;
             dgvDataPenyewa.ReadOnly = true;
             dgvDataPenyewa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            // Contoh memasukkan data dummy ke dalam tabel untuk dites
 
-            // Merapikan tampilan tabel
-            dgvDataPenyewa.AllowUserToAddRows = false; // Menghilangkan baris kosong di bawah
-            dgvDataPenyewa.ReadOnly = true; // Tabel tidak bisa diedit langsung
+            // Dummy 1: Sewa Tenda Dome 4P (CMP-001)
+            // Harga: Rp 50.000/hari | Durasi: 2 hari | Jumlah: 1 unit
+            // Total = 2 hari * 1 unit * Rp 50.000 = Rp 100.000
+            listDataTransaksi.Add(new Transaksi(
+                "TRX-260503091500",           // ID Transaksi (Format: TRX-yyMMddHHmmss)
+                "Budi Santoso",               // Nama Penyewa
+                "CMP-001",                    // ID Barang
+                1,                            // Jumlah
+                new DateTime(2026, 5, 1),     // Tgl Sewa
+                new DateTime(2026, 5, 3),     // Tgl Kembali
+                100000m                       // Total Harga (gunakan akhiran 'm' untuk tipe decimal)
+            ));
+
+            // Dummy 2: Sewa Carrier 60L (CMP-002)
+            // Harga Diskon: Rp 67.500/hari (karena ada diskon 10% dari Rp 75.000)
+            // Durasi: 3 hari | Jumlah: 2 unit
+            // Total = 3 hari * 2 unit * Rp 67.500 = Rp 405.000
+            listDataTransaksi.Add(new Transaksi(
+                "TRX-260503102000",
+                "Siti Aminah",
+                "CMP-002",
+                2,
+                new DateTime(2026, 5, 2),
+                new DateTime(2026, 5, 5),
+                405000m
+            ));
+
+            // Pastikan memanggil method ini untuk merender data ke DataGridView
+            TampilkanDataTransaksi();
         }
 
+        // ==========================================
+        // TAMPILKAN DATA KE GRIDVIEW
+        // ==========================================
         private void TampilkanDataTransaksi()
         {
-            // 1. Bersihkan tabel sebelum memasukkan data baru agar tidak ganda
             dgvDataPenyewa.Rows.Clear();
 
-            // 2. Looping: Ambil satu per satu data dari List, lalu masukkan ke tabel
             foreach (Transaksi trx in listDataTransaksi)
             {
-                // Masukkan data ke kolom tabel. 
-                // PASTIKAN NAMA PROPERTI (seperti trx.IdTransaksi) SESUAI DENGAN ISI CLASS Transaksi.cs ANDA!
                 dgvDataPenyewa.Rows.Add(
                     trx.IdTransaksi,
                     trx.NamaPenyewa,
-                    trx.Barangid,
-                    trx.TglSewa.ToString("dd MMM yyyy")
+                    trx.BarangId,
+                    trx.Jumlah,
+                    trx.TglSewa.ToString("dd MMM yyyy"),
+                    trx.TglKembali.ToString("dd MMM yyyy"),
+                    "Rp " + trx.TotalHarga.ToString("N0")
                 );
             }
         }
 
+        // ==========================================
+        // EVENT HANDLERS - TOMBOL
+        // ==========================================
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            FormInput formBaru = new FormInput();
+            FormInput formBaru = new FormInput(_daftarAlat);
 
-            // Jika pengguna mengklik tombol Simpan di FormInput
             if (formBaru.ShowDialog() == DialogResult.OK)
             {
-                // Ambil data transaksi dari form input
                 Transaksi trxBaru = formBaru.GetTransaksi();
-
-                // Tambahkan ke dalam List
                 listDataTransaksi.Add(trxBaru);
-
-                // Segarkan tabel agar data baru muncul
                 TampilkanDataTransaksi();
             }
         }
 
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            // Pastikan pengguna sudah memilih baris
-            if (dgvDataPenyewa.SelectedRows.Count > 0)
+            if (dgvDataPenyewa.SelectedRows.Count == 0)
             {
-                int indexYangDipilih = dgvDataPenyewa.SelectedRows[0].Index;
+                MessageBox.Show("Silakan klik baris transaksi yang ingin diubah terlebih dahulu!",
+                                "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                // Ambil data transaksi lama dari List
-                Transaksi dataLama = listDataTransaksi[indexYangDipilih];
+            int indexDipilih = dgvDataPenyewa.SelectedRows[0].Index;
+            Transaksi dataLama = listDataTransaksi[indexDipilih];
 
-                FormInput formUpdate = new FormInput();
-                formUpdate.Text = "Update Data Transaksi"; // Ubah judul form (opsional)
+            // Kembalikan stok dulu sebelum update
+            AlatCamping alatLama = _daftarAlat.Find(x => x.IdBarang == dataLama.BarangId);
+            alatLama?.TambahStok(dataLama.Jumlah);
 
-                // Lempar data lama ke form agar kotak input terisi otomatis
-                // Pastikan Anda sudah membuat method IsiForm() di FormInput.cs
-                formUpdate.IsiForm(dataLama);
+            FormInput formUpdate = new FormInput(_daftarAlat);
+            formUpdate.Text = "Update Data Transaksi";
+            formUpdate.IsiForm(dataLama);
 
-                // Buka form, dan jika pengguna klik Simpan...
-                if (formUpdate.ShowDialog() == DialogResult.OK)
-                {
-                    // Ambil data yang sudah diedit
-                    Transaksi dataBaru = formUpdate.GetTransaksi();
-
-                    // Timpa data lama dengan data baru di posisi index yang sama
-                    listDataTransaksi[indexYangDipilih] = dataBaru;
-
-                    // Segarkan tabel
-                    TampilkanDataTransaksi();
-
-                    MessageBox.Show("Data transaksi berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+            if (formUpdate.ShowDialog() == DialogResult.OK)
+            {
+                Transaksi dataBaru = formUpdate.GetTransaksi();
+                listDataTransaksi[indexDipilih] = dataBaru;
+                TampilkanDataTransaksi();
+                MessageBox.Show("Data transaksi berhasil diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Silakan klik baris transaksi yang ingin diubah terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Batal update → kembalikan pengurangan stok lama
+                alatLama?.KurangiStok(dataLama.Jumlah);
             }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            // Pastikan pengguna sudah mengklik/memilih salah satu baris di tabel
-            if (dgvDataPenyewa.SelectedRows.Count > 0)
+            if (dgvDataPenyewa.SelectedRows.Count == 0)
             {
-                // Ambil posisi baris (index) yang diklik
-                int indexYangDipilih = dgvDataPenyewa.SelectedRows[0].Index;
-
-                // Munculkan kotak konfirmasi
-                DialogResult jawaban = MessageBox.Show("Apakah Anda yakin ingin menghapus transaksi ini?",
-                                                       "Konfirmasi Hapus",
-                                                       MessageBoxButtons.YesNo,
-                                                       MessageBoxIcon.Question);
-
-                if (jawaban == DialogResult.Yes)
-                {
-                    // Hapus data dari List berdasarkan index
-                    listDataTransaksi.RemoveAt(indexYangDipilih);
-
-                    // Segarkan tabel
-                    TampilkanDataTransaksi();
-                }
+                MessageBox.Show("Silakan klik baris transaksi yang ingin dihapus terlebih dahulu!",
+                                "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+
+            DialogResult jawaban = MessageBox.Show("Apakah Anda yakin ingin menghapus transaksi ini?",
+                                                   "Konfirmasi Hapus",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Question);
+            if (jawaban == DialogResult.Yes)
             {
-                MessageBox.Show("Silakan klik baris transaksi yang ingin dihapus terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                int indexDipilih = dgvDataPenyewa.SelectedRows[0].Index;
+                Transaksi trxDihapus = listDataTransaksi[indexDipilih];
+
+                // Kembalikan stok barang
+                AlatCamping alat = _daftarAlat.Find(x => x.IdBarang == trxDihapus.BarangId);
+                alat?.TambahStok(trxDihapus.Jumlah);
+
+                listDataTransaksi.RemoveAt(indexDipilih);
+                TampilkanDataTransaksi();
             }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

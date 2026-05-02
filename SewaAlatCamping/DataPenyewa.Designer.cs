@@ -2,109 +2,124 @@
 {
     partial class DataTransaksi
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataTransaksi));
+
             dgvDataPenyewa = new DataGridView();
             btnAdd = new Button();
             btnUpdate = new Button();
             btnDelete = new Button();
+            btnBack = new Button();
+
             ((System.ComponentModel.ISupportInitialize)dgvDataPenyewa).BeginInit();
             SuspendLayout();
-            // 
-            // dgvDataPenyewa
-            // 
-            dgvDataPenyewa.BackgroundColor = Color.FromArgb(192, 255, 192);
+
+            // ── DataGridView ───────────────────────────────────────────
+            dgvDataPenyewa.BackgroundColor = System.Drawing.Color.FromArgb(220, 255, 220);
+            dgvDataPenyewa.BorderStyle = BorderStyle.None;
             dgvDataPenyewa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDataPenyewa.Location = new Point(24, 12);
+            dgvDataPenyewa.Location = new System.Drawing.Point(12, 50);
             dgvDataPenyewa.Name = "dgvDataPenyewa";
-            dgvDataPenyewa.Size = new Size(745, 321);
+            dgvDataPenyewa.Size = new System.Drawing.Size(776, 300);
             dgvDataPenyewa.TabIndex = 0;
-            // 
-            // btnAdd
-            // 
-            btnAdd.BackColor = Color.MediumAquamarine;
+
+            // Style header
+            dgvDataPenyewa.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(144, 238, 144);
+            dgvDataPenyewa.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(0, 64, 0);
+            dgvDataPenyewa.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            dgvDataPenyewa.EnableHeadersVisualStyles = false;
+
+            // Style row alternating
+            dgvDataPenyewa.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.Honeydew;
+
+            // ── Tombol Add (pastel hijau mint) ─────────────────────────
+            btnAdd.BackColor = System.Drawing.Color.FromArgb(180, 230, 180);
             btnAdd.Cursor = Cursors.Hand;
             btnAdd.FlatAppearance.BorderSize = 0;
             btnAdd.FlatStyle = FlatStyle.Flat;
-            btnAdd.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAdd.ForeColor = Color.FromArgb(0, 64, 0);
-            btnAdd.Location = new Point(24, 379);
+            btnAdd.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnAdd.ForeColor = System.Drawing.Color.FromArgb(0, 64, 0);
+            btnAdd.Location = new System.Drawing.Point(12, 370);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(85, 35);
-            btnAdd.TabIndex = 2;
+            btnAdd.Size = new System.Drawing.Size(85, 35);
+            btnAdd.TabIndex = 1;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
-            // 
-            // btnUpdate
-            // 
-            btnUpdate.BackColor = Color.SandyBrown;
+
+            // ── Tombol Update (pastel oranye) ──────────────────────────
+            btnUpdate.BackColor = System.Drawing.Color.FromArgb(255, 218, 185);
             btnUpdate.Cursor = Cursors.Hand;
             btnUpdate.FlatAppearance.BorderSize = 0;
             btnUpdate.FlatStyle = FlatStyle.Flat;
-            btnUpdate.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnUpdate.ForeColor = Color.Black;
-            btnUpdate.Location = new Point(129, 379);
+            btnUpdate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnUpdate.ForeColor = System.Drawing.Color.FromArgb(139, 69, 19);
+            btnUpdate.Location = new System.Drawing.Point(107, 370);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(85, 35);
-            btnUpdate.TabIndex = 4;
+            btnUpdate.Size = new System.Drawing.Size(85, 35);
+            btnUpdate.TabIndex = 2;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
-            // 
-            // btnDelete
-            // 
-            btnDelete.BackColor = Color.LightPink;
+
+            // ── Tombol Delete (pastel merah muda) ──────────────────────
+            btnDelete.BackColor = System.Drawing.Color.FromArgb(255, 182, 193);
             btnDelete.Cursor = Cursors.Hand;
             btnDelete.FlatAppearance.BorderSize = 0;
             btnDelete.FlatStyle = FlatStyle.Flat;
-            btnDelete.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnDelete.ForeColor = Color.DarkRed;
-            btnDelete.Location = new Point(684, 379);
+            btnDelete.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnDelete.ForeColor = System.Drawing.Color.FromArgb(139, 0, 0);
+            btnDelete.Location = new System.Drawing.Point(703, 370);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(85, 35);
-            btnDelete.TabIndex = 5;
+            btnDelete.Size = new System.Drawing.Size(85, 35);
+            btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
-            // 
-            // DataTransaksi
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            btnDelete.Click += btnDelete_Click;
+
+            // ── Tombol Back (pastel biru lavender) ─────────────────────
+            btnBack.BackColor = System.Drawing.Color.FromArgb(200, 200, 255);
+            btnBack.Cursor = Cursors.Hand;
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnBack.ForeColor = System.Drawing.Color.FromArgb(50, 50, 150);
+            btnBack.Location = new System.Drawing.Point(12, 12);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new System.Drawing.Size(90, 30);
+            btnBack.TabIndex = 4;
+            btnBack.Text = "◀ Kembali";
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
+
+            // ── Form ───────────────────────────────────────────────────
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImage = (System.Drawing.Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Zoom;
-            ClientSize = new Size(800, 450);
+            ClientSize = new System.Drawing.Size(800, 450);
+            Name = "DataTransaksi";
+            Text = "Data Penyewa";
+            Load += DataTransaksi_Load;
+
+            Controls.Add(btnBack);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnAdd);
             Controls.Add(dgvDataPenyewa);
-            Name = "DataTransaksi";
-            Text = "DataPenyewa";
+
             ((System.ComponentModel.ISupportInitialize)dgvDataPenyewa).EndInit();
             ResumeLayout(false);
         }
@@ -115,5 +130,6 @@
         private Button btnAdd;
         private Button btnUpdate;
         private Button btnDelete;
+        private Button btnBack;
     }
 }
