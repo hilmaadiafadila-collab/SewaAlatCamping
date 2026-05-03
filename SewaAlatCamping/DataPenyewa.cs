@@ -10,27 +10,17 @@ namespace SewaAlatCamping
 {
     public partial class DataTransaksi : Form
     {
-        // ==========================================
-        // FIELDS
-        // ==========================================
         private List<Transaksi> listDataTransaksi = new List<Transaksi>();
         private readonly List<AlatCamping> _daftarAlat;
 
-        // ==========================================
-        // CONSTRUCTOR
-        // ==========================================
         public DataTransaksi(List<AlatCamping> daftarAlat)
         {
             InitializeComponent();
             _daftarAlat = daftarAlat ?? throw new ArgumentNullException(nameof(daftarAlat));
         }
 
-        // ==========================================
-        // FORM LOAD
-        // ==========================================
         private void DataTransaksi_Load(object sender, EventArgs e)
         {
-            // Setup kolom DataGridView
             dgvDataPenyewa.ColumnCount = 7;
             dgvDataPenyewa.Columns[0].Name = "ID Transaksi";
             dgvDataPenyewa.Columns[1].Name = "Nama Penyewa";
@@ -48,23 +38,16 @@ namespace SewaAlatCamping
             dgvDataPenyewa.ReadOnly = true;
             dgvDataPenyewa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // Dummy 1: Sewa Tenda Dome 4P (CMP-001)
-            // Harga: Rp 50.000/hari | Durasi: 2 hari | Jumlah: 1 unit
-            // Total = 2 hari * 1 unit * Rp 50.000 = Rp 100.000
             listDataTransaksi.Add(new Transaksi(
-                "TRX-260503091500",           // ID Transaksi (Format: TRX-yyMMddHHmmss)
-                "Budi Santoso",               // Nama Penyewa
-                "CMP-001",                    // ID Barang
-                1,                            // Jumlah
-                new DateTime(2026, 5, 1),     // Tgl Sewa
-                new DateTime(2026, 5, 3),     // Tgl Kembali
-                100000m                       // Total Harga (gunakan akhiran 'm' untuk tipe decimal)
+                "TRX-260503091500",           
+                "Budi Santoso",               
+                "CMP-001",                    
+                1,                            
+                new DateTime(2026, 5, 1),     
+                new DateTime(2026, 5, 3),     
+                100000m                       
             ));
 
-            // Dummy 2: Sewa Carrier 60L (CMP-002)
-            // Harga Diskon: Rp 67.500/hari (karena ada diskon 10% dari Rp 75.000)
-            // Durasi: 3 hari | Jumlah: 2 unit
-            // Total = 3 hari * 2 unit * Rp 67.500 = Rp 405.000
             listDataTransaksi.Add(new Transaksi(
                 "TRX-260503102000",
                 "Siti Aminah",
@@ -75,13 +58,9 @@ namespace SewaAlatCamping
                 405000m
             ));
 
-            // Pastikan memanggil method ini untuk merender data ke DataGridView
             TampilkanDataTransaksi();
         }
 
-        // ==========================================
-        // TAMPILKAN DATA KE GRIDVIEW
-        // ==========================================
         private void TampilkanDataTransaksi()
         {
             dgvDataPenyewa.Rows.Clear();
@@ -100,9 +79,6 @@ namespace SewaAlatCamping
             }
         }
 
-        // ==========================================
-        // EVENT HANDLERS - TOMBOL
-        // ==========================================
         private void btnAdd_Click(object sender, EventArgs e)
         {
             FormInput formBaru = new FormInput(_daftarAlat);
@@ -127,7 +103,6 @@ namespace SewaAlatCamping
             int indexDipilih = dgvDataPenyewa.SelectedRows[0].Index;
             Transaksi dataLama = listDataTransaksi[indexDipilih];
 
-            // Kembalikan stok dulu sebelum update
             AlatCamping alatLama = _daftarAlat.Find(x => x.IdBarang == dataLama.BarangId);
             alatLama?.TambahStok(dataLama.Jumlah);
 
@@ -144,7 +119,6 @@ namespace SewaAlatCamping
             }
             else
             {
-                // Batal update → kembalikan pengurangan stok lama
                 alatLama?.KurangiStok(dataLama.Jumlah);
             }
         }
@@ -167,7 +141,6 @@ namespace SewaAlatCamping
                 int indexDipilih = dgvDataPenyewa.SelectedRows[0].Index;
                 Transaksi trxDihapus = listDataTransaksi[indexDipilih];
 
-                // Kembalikan stok barang
                 AlatCamping alat = _daftarAlat.Find(x => x.IdBarang == trxDihapus.BarangId);
                 alat?.TambahStok(trxDihapus.Jumlah);
 
